@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Timer Sign Up</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="js/bootstrap.js">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+  </head>
+  <body>
+
+<section id="wrapper">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-4">
+        <div class="palindrome text-center">
+          <input type="text" name="palindrome" id="palindrome" placeholder="Enter Digit or String">
+          <button class="btn btn-danger" type="button" onclick="ClckPal();">Check if Palindrome</button>
+          <h4 id="PalShow"> </h4>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="time text-center">
+            <h2 id="Clock"></h2>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="prime text-center">
+          <input type="text" name="number" id="prime" placeholder="Enter Digit">
+          <button class="btn btn-danger" type="button" onclick="ClckPrime()">Check if number is Prime</button>
+          <h4 id="ShowPrime"></h4>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="sign-up">
+  <div class="modal fade click" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+    <div class="modal-dialog modal-md" role="document">
+      <div class="modal-content">
+        <div class="modal-body text-center">
+          <h4>Sign Up Now!!</h4>
+          <form class="sign" name="signupform">
+            <div class="form-group">
+              <input type="text" name="fname" placeholder="Full Name">
+            </div>
+            <div class="form-group">
+              <input type="text" name="phone" placeholder="Phone number">
+            </div>
+            <div class="form-group" >
+              <input type="email" name="email" placeholder="E-mail address">
+              <span></span>
+            </div>
+            <div class="form-group">
+              <input type="password" name="password" placeholder="Password">
+              <span></span>
+            </div>
+            <div class="form-group">
+              <input type="password" name="rpassword" placeholder="Re-type Password">
+            </div>
+            <button type="button" class="btn btn-danger" onclick="SignUp()">Sign Up Now</button>
+
+            <h2 id="Result"></h2>
+          </form>
+        </div>
+      </div>
+    </div>
+</div>
+
+</section>  
+
+    <script type="text/javascript">
+      function SignUp(){
+        var fn=document.signupform.fname.value;
+        var ph=document.signupform.phone.value;
+        var ml=document.signupform.email.value;
+        var password=document.signupform.password.value;
+        var rpassword=document.signupform.rpassword.value;
+
+        var result=document.getElementById("Result");
+        if (fn == "" || ph == "" || ml == "" || password == ""){
+          result.innerHTML="**Please enter required information**"
+        }
+        else if (ph.length < 11) {
+          result.innerHTML="**Please enter valid phone number**"
+        } 
+        else if(password.length < 4){
+          result.innerHTML="**Please enter a minimum of 4 digit password**";
+        }
+        else if(password != rpassword){
+          result.innerHTML="**Password does not match**";
+        }
+        else{
+          result.innerHTML="The data is submitted!";
+        }
+      }
+    </script>    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script><!-- 
+    <script src="jq/jquery.js"></script> -->
+    <script>
+      $(document).ready(function(){
+        $("input:password").keyup(
+          function(){
+            var password=$("input:password").val().length;
+            if(password <= 2){
+              $("span").text("Weak");
+              $("span").css("color","red");
+            }
+            else if(password <= 4){
+              $("span").text("Medium");
+              $("span").css("color","orange");
+            }
+            else{
+              $("span").text("Strong");
+              $("span").css("color","green");
+            }
+
+          });
+      });
+    </script>
+    <script>
+            function Clck(){
+              var a=new Date();
+              var Time=a.toLocaleString();
+              document.getElementById("Clock").innerHTML=Time;
+            }
+            setInterval(
+              function(){
+                Clck();
+              }
+            ,1000)
+    </script>
+    <script>
+      $(document).ready(function(){
+          $("input.email").keyup(function(){
+            var email_regex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9,-]+\.[a-zA-Z]{2,4}$/i;
+            var email=$("input.email").val();
+
+            if(email_regex.test(email)){
+              $("span.email").text("Your email address is valid");
+            }
+          })
+      })
+    </script>
+    <script>
+      function ClckPal(){
+      var str=document.getElementById("palindrome").value;
+      var i=str.length;
+      var rvrs="";
+
+      for( var j = i; j>=0 ; j--){
+        rvrs=rvrs+str.charAt(j)
+      }
+
+      if(str==rvrs){
+        document.getElementById("PalShow").innerHTML="Palindrome";
+      } else{
+        document.getElementById("PalShow").innerHTML="Not Palindrome";
+      }
+    }
+    </script>
+    <script>
+      function ClckPrime(){
+        var str=document.getElementById("prime").value;
+
+        var i=0;
+        var j=2;
+
+        for(j ; j<str; j++){
+          if(str%j == 0){
+            i=j;
+          }
+        }
+
+        if(i==0){
+          document.getElementById("ShowPrime").innerHTML=str+" is a Prime Number";
+        }
+        else{
+          document.getElementById("ShowPrime").innerHTML=str+" is a Not Prime Number";
+        }
+      }
+    </script>
+  <script>
+  setTimeout(
+    function(){
+      $('.click').modal('show');
+    },3000);
+    </script>
+  </body>
+</html>
